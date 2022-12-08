@@ -8,8 +8,8 @@ services:
     restart: 'unless-stopped'
     volumes:
       - './database/init.sql:/docker-entrypoint-initdb.d/init.sql'
-    ports:
-      - '3306:3306'
+    expose:
+      - '3306'
   backend:
     build:
       context: backend
@@ -24,8 +24,8 @@ services:
       - 'DB_USER=root'
     volumes:
       - ./backend/src:/app:ro
-    ports:
-      - '5000:5000'
+    expose:
+      - '5000'
   frontend:
     image: nginx:latest
     ports:
