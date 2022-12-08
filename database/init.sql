@@ -15,8 +15,8 @@ CREATE TABLE `posts` (
 INSERT INTO `accounts`
     (`id`, `email`, `username`, `password`)
 VALUES
-    (1, 'user1', 'Cool User #1', '0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90'),
-    (2, 'user2', 'Cool User #2', '6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3');
+    (1, 'user1@email.com', 'Cool User #1', '0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90'),
+    (2, 'user2@email.com', 'Cool User #2', '6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3');
 
 INSERT INTO `posts`
     (`id`, `author_id`, `content`, `created_at`)
