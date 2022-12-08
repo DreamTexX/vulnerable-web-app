@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chrips</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/auth-check.js"></script>
+</head>
+
+<body>
+    <header class="w-full shadow-lg flex justify-center">
+        <div class="max-w-4xl flex justify-between w-full py-5 p-2">
+            <span>Chrips!</span>
+            <div>
+                <div class="flex gap-6 hidden hide-when-logged-in">
+                    <a href="/login.html">Sign In</a>
+                    <a href="/register.html">Sign Up</a>
+                </div>
+                <div class="flex hidden visible-when-logged-in email">
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="m-auto max-w-4xl p-2 mt-8">
+        <section class="hidden visible-when-logged-in">
+            <form action="" class="flex flex-col gap-5">
+                <label>
+                    <textarea name="content" cols="30" rows="5" placeholder="Compose a new Chirp!"
+                        class="w-full shadow-md rounded-xl p-3 border-slate-200 border resize-none border-solid"></textarea>
+                </label>
+                <div class="flex justify-end w-full">
+                    <button type="submit" class="bg-blue-400 rounded-xl py-3 px-12 max-w-min text-white">Chirp!</button>
+                </div>
+            </form>
+        </section>
+        <hr class="my-12">
+        <section>
+            <ul class="flex flex-col gap-12"></ul>
+        </section>
+    </main>
+
+    <script src="js/chirp.js"></script>
+</body>
+
+</html>

@@ -73,12 +73,10 @@ def api_register():
 
 @app.route("/api/posts", methods=["GET"])
 def api_get_all_posts():
-    cur = conn.cursor()
+    cur = conn.cursor(dictionary=True)
     cur.execute(f"""SELECT `id`, `content`, `author_id` FROM `posts`;""")
 
-    headers = ["id", "content", "author_id"]
-    rows = cur.fetchall()
-    return [dict(zip(headers, row)) for row in rows]
+    return cur.fetchall()
 
 
 @app.route("/api/posts", methods=["POST"])
