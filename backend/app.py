@@ -2,9 +2,8 @@ import json
 from flask import Flask, request, session, Response
 import mariadb
 import sys
-import re
 from os import environ
-from argon2 import PasswordHasher
+import hashlib
 
 try:
     conn: mariadb.Connection = mariadb.connect(
@@ -18,8 +17,6 @@ except mariadb.Error as e:
     print(f"Error connecting to MySQL Platform: {e}")
     sys.exit(1)
 
-hasher = PasswordHasher()
-
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.secret_key = "super-secret"
@@ -27,28 +24,39 @@ app.secret_key = "super-secret"
 
 @app.route("/api/auth/login", methods=["POST"])
 def api_login():
-    pass
+    data = request.get_json()
+    email = data["email"]
+    password = hashlib.sha256(data["password"].encode()).hexdigest()
+
+    cur = conn.cursor()
+    cur.execute(
+        f"""SELECT `id`, `password` FROM `accounts` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';""")
+
+    if cur.rowcount == 0:
+        return Response(response=json.dumps({"error": "wrong-credentials"}), content_type="application/json", status=401)
+
+    row = cur.fetchone()
+    
+    session["id"] = row[0]
+    return Response(status=201)
 
 
 @app.route("/api/auth/register", methods=["POST"])
 def api_register():
     # Extract data from request body
     data = request.get_json()
+    
+    # Validate an parse request data
+    email = data["email"]
+    password = hashlib.sha256(data["password"].encode()).hexdigest()
 
     # Check if this e-mail is already in use
     cur = conn.cursor()
     cur.execute(
-        f"""SELECT `email` FROM `accounts` WHERE `email` LIKE '{data["email"]}';""")
+        f"""SELECT `email` FROM `accounts` WHERE `email` LIKE '{email}';""")
 
     if cur.rowcount > 0:
         return Response(response=json.dumps({"error": "already-in-use"}), content_type="application/json", status=400)
-
-    # Validate an parse request data
-    email = data["email"]
-    if not re.search(r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$', email):
-        return Response(response=json.dumps({"error": "invalid-email"}), content_type="application/json", status=400)
-
-    password = hasher.hash(data["password"])
 
     # Store user in database
     cur.execute(
@@ -90,6 +98,24 @@ def api_create_post():
         "id": cur.lastrowid,
         "content": content,
         "author_id": author_id,
+    }
+
+
+@app.route("/api/accounts/@me", methods=["GET"])
+def get_account_own():
+    if session.get("id") is None:
+        return Response(status=403, content_type="application/json", response=json.dumps({"error": "unauthorized"}))
+    
+    cur = conn.cursor()
+    cur.execute(f"""SELECT `id`, `email` FROM `accounts` WHERE `id` = {session["id"]}""")
+    if cur.rowcount == 0:
+        session.clear()
+        return Response(status=404, content_type="application/json", response=json.dumps({"error": "not-found"}))
+
+    data = cur.fetchone()
+    return {
+        "id": data[0],
+        "email": data[1]
     }
 
 

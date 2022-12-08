@@ -1,7 +1,7 @@
 CREATE TABLE `accounts` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `email` TEXT UNIQUE NOT NULL,
-    `password` TEXT UNIQUE NOT NULL
+    `password` TEXT NOT NULL
 );
 
 CREATE TABLE `posts` (
