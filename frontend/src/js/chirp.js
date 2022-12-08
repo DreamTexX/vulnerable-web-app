@@ -25,6 +25,7 @@ window.addEventListener('load', function (event) {
             ).then(
                 function (data) {
                     addChirp(data, true);
+                    form.reset();
                 }
             ).catch(
                 function (err) {
