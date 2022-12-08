@@ -8,6 +8,7 @@ from accounts_me import accounts_me_blueprint
 
 app = Flask(__name__)
 app.secret_key = "super-secret"
+app.config['SESSION_COOKIE_HTTPONLY'] = False
 app.register_blueprint(auth_register_blueprint)
 app.register_blueprint(auth_login_blueprint)
 app.register_blueprint(auth_logout_blueprint)
