@@ -21,6 +21,6 @@ VALUES
 INSERT INTO `posts`
     (`id`, `author_id`, `content`, `created_at`)
 VALUES
-    (1, 1, 'Hey, das ist mein erster Chrip!', '2022-11-20 12:04:43'),
+    (1, 1, 'Hey, das ist mein erster Chirp!', '2022-11-20 12:04:43'),
     (2, 1, 'Update: das hier ist mein zweiter Chirp!', '2022-11-25 17:23:12'),
     (3, 2, 'Hey ich bin jetzt auch bei Chirp!', '2022-12-07 10:45:47');
