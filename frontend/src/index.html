@@ -5,40 +5,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chrips</title>
+    <title>Chirps</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="js/auth-check.js"></script>
 </head>
 
-<body>
-    <header class="w-full shadow-lg flex justify-center">
-        <div class="max-w-4xl flex justify-between w-full py-5 p-2">
-            <span>Chrips!</span>
+<body class="bg-gray-100">
+    <header class="w-full shadow-sm flex justify-center bg-white">
+        <div class="max-w-4xl flex justify-between w-full">
+            <a href="/" class="px-2 py-5">Chirps!</a>
             <div>
-                <div class="flex gap-6 hidden hide-when-logged-in">
+                <div class="flex gap-6 hidden hide-when-logged-in px-3 py-5">
                     <a href="/login.html">Sign In</a>
                     <a href="/register.html">Sign Up</a>
                 </div>
-                <div class="flex hidden visible-when-logged-in email">
+                <div class="flex hidden visible-when-logged-in group relative">
+                    <div class="flex gap-2 py-5 px-3 cursor-pointer">
+                        <span class="email"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div
+                        class="absolute flex top-14 right-3 p-3 hidden group-hover:block min-w-full w-32 bg-white rounded-xl shadow-sm border border-gray-100">
+                        <a href="/logout.html">Log Out</a>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
-    <main class="m-auto max-w-4xl p-2 mt-8">
-        <section class="hidden visible-when-logged-in">
-            <form action="" class="flex flex-col gap-5">
+    <main class="m-auto max-w-4xl px-3">
+        <section class="hidden visible-when-logged-in mt-12">
+            <form action="" class="flex flex-col gap-4">
                 <label>
                     <textarea name="content" cols="30" rows="5" placeholder="Compose a new Chirp!"
-                        class="w-full shadow-md rounded-xl p-3 border-slate-200 border resize-none border-solid"></textarea>
+                        class="w-full shadow-sm rounded-xl py-3 px-5 resize-none bg-white"></textarea>
                 </label>
                 <div class="flex justify-end w-full">
-                    <button type="submit" class="bg-blue-400 rounded-xl py-3 px-12 max-w-min text-white">Chirp!</button>
+                    <button type="submit"
+                        class="bg-blue-400 shadow-sm rounded-xl py-3 px-12 max-w-min text-white">Chirp!</button>
                 </div>
             </form>
         </section>
-        <hr class="my-12">
-        <section>
-            <ul class="flex flex-col gap-12"></ul>
+        <section class="mt-12">
+            <ul class="flex flex-col gap-6 chirps"></ul>
         </section>
     </main>
 

@@ -23,7 +23,7 @@ services:
       - 'DB_NAME=web-app'
       - 'DB_USER=root'
     volumes:
-      - ./backend:/app:ro
+      - ./backend/src:/app:ro
     ports:
       - '5000:5000'
   frontend:

@@ -15,21 +15,21 @@ window.addEventListener('load', function(event) {
         )
         .then(
             function(data) {
-                for (let element of hiddenWhenAuthenticated) {
+                for (const element of hiddenWhenAuthenticated) {
                     element.classList.add('hidden');
                 }
-                for (let element of visibleWhenAuthenticated) {
+                for (const element of visibleWhenAuthenticated) {
                     element.classList.remove('hidden');
                 }
-                document.querySelector('.email').innerText = data.email;
+                document.querySelector('.email').innerText = data.username;
             }
         )
         .catch(
             function (err) {
-                for (let element of hiddenWhenAuthenticated) {
+                for (const element of hiddenWhenAuthenticated) {
                     element.classList.remove('hidden');
                 }
-                for (let element of visibleWhenAuthenticated) {
+                for (const element of visibleWhenAuthenticated) {
                     element.classList.add('hidden');
                 }
             }

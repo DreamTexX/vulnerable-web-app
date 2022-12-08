@@ -13,11 +13,15 @@
     <header class="w-full shadow-sm flex justify-center bg-white">
         <div class="max-w-4xl flex justify-between w-full py-5 p-2">
             <a href="/">Chirps!</a>
-            <a href="/register.html">Sign Up</a>
+            <a href="/login.html">Sign In</a>
         </div>
     </header>
     <main class="m-auto max-w-xl p-2 mt-8">
         <form action="" class="flex flex-col gap-5">
+            <label>
+                <input name="username" type="text" placeholder="Username"
+                    class="w-full shadow-md rounded-xl p-3 border-slate-200 border resize-none border-solid"></textarea>
+            </label>
             <label>
                 <input name="email" type="text" placeholder="E-Mail"
                     class="w-full shadow-md rounded-xl p-3 border-slate-200 border resize-none border-solid"></textarea>
@@ -28,12 +32,12 @@
             </label>
             <label class="hidden errors text-red-400 text-center"></label>
             <div class="flex justify-end w-full">
-                <button type="submit" class="bg-blue-400 rounded-xl py-3 px-12 max-w-max text-white">Sign In!</button>
+                <button type="submit" class="bg-blue-400 rounded-xl py-3 px-12 max-w-max text-white">Sign Up!</button>
             </div>
         </form>
     </main>
 
-    <script src="js/login.js"></script>
+    <script src="js/register.js"></script>
 </body>
 
 </html>
