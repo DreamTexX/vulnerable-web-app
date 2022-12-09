@@ -17,25 +17,26 @@ def api_register():
 
     # validate request data
     if email == "" or username == "" or len(data["password"]) < 4:
-        return {"error": "invalid-input"}, 400
+        return {"error": "Please provide email, username and a password with at least four chars"}, 400
 
-    # Check if this e-mail/username is already in use
-    conn = pool.get_connection()
-    cur = conn.cursor(buffered=True)
-    cur.execute(
-        f"""SELECT `email`, `username` FROM `accounts` WHERE `email` LIKE '{email}' OR `username` LIKE '{username}';""")
+    try:
+        # Check if this e-mail/username is already in use
+        conn = pool.get_connection()
+        cur = conn.cursor(buffered=True)
+        cur.execute(
+            f"""SELECT `email`, `username` FROM `accounts` WHERE `email` LIKE '{email}' OR `username` LIKE '{username}';""")
 
-    if cur.rowcount > 0:
+        if cur.rowcount > 0:
+            return {"error": "Email or username are already taken"}, 400
+
+        # Store user in database
+        cur.execute(
+            f"""INSERT INTO `accounts` (`email`, `username`, `password`) VALUES ('{email}', '{username}', '{password}');""")
+
+        # Create session for user
+        session["id"] = cur.lastrowid
+
+        return {}, 201
+    finally:
+        cur.close()
         conn.close()
-        return {"error": "already-in-use"}, 400
-
-    # Store user in database
-    cur.execute(
-        f"""INSERT INTO `accounts` (`email`, `username`, `password`) VALUES ('{email}', '{username}', '{password}');""")
-    conn.commit()
-    conn.close()
-
-    # Create session for user
-    session["id"] = cur.lastrowid
-
-    return {}, 201
