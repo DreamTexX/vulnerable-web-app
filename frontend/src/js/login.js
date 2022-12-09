@@ -1,8 +1,8 @@
-window.addEventListener('load', function(event) {
+window.addEventListener('load', function (event) {
     let form = document.querySelector('form');
     let errorField = document.querySelector('.errors');
 
-    form.addEventListener('submit', function(ev) {
+    form.addEventListener('submit', function (ev) {
         ev.preventDefault();
         ev.stopPropagation();
         errorField.classList.add('hidden');
@@ -17,8 +17,9 @@ window.addEventListener('load', function(event) {
             },
         })
             .then(
-                function (data) {
-                    if (data.status != 201) throw new Error();
+                async function (data) {
+                    if (data.status != 201) throw new Error((await data.json()).error);
+                    return data.json();
                 }
             ).then(
                 function (data) {
@@ -26,8 +27,7 @@ window.addEventListener('load', function(event) {
                 }
             ).catch(
                 function (err) {
-                    console.log(err);
-                    errorField.innerText = "Wrong credentials, please try again!"
+                    errorField.innerText = err
                     errorField.classList.remove('hidden');
                 }
             );

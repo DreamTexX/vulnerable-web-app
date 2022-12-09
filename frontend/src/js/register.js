@@ -17,8 +17,9 @@ window.addEventListener('load', function(event) {
             },
         })
             .then(
-                function (data) {
-                    if (data.status != 201) throw new Error();
+                async function (data) {
+                    if (data.status != 201) throw new Error((await data.json()).error);
+                    return data.json();
                 }
             ).then(
                 function (data) {
@@ -26,8 +27,7 @@ window.addEventListener('load', function(event) {
                 }
             ).catch(
                 function (err) {
-                    console.log(err);
-                    errorField.innerText = "Please provide all fields!"
+                    errorField.innerText = err.error
                     errorField.classList.remove('hidden');
                 }
             );
