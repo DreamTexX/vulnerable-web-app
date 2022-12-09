@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Response
 from auth_register import auth_register_blueprint
 from auth_login import auth_login_blueprint
 from auth_logout import auth_logout_blueprint
@@ -18,3 +18,7 @@ app.register_blueprint(accounts_me_blueprint)
 
 if __name__ == "__main__":
     app.run()
+
+@app.errorhandler(Exception)
+def all_exception_handler(error):
+    return { "error": str(error) }, 500
