@@ -15,7 +15,7 @@ def api_login():
         conn = pool.get_connection()
         cur = conn.cursor(buffered=True)
         cur.execute(
-            f"""SELECT `id` FROM `accounts` WHERE `email` LIKE '{email}' AND `password` LIKE '{password}';""")
+            f"""SELECT `id` FROM `accounts` WHERE `email` LIKE %s AND `password` LIKE %s;""", (email, password))
 
         if cur.rowcount == 0:
             return {"error": "The credentials provided do not match"}, 401

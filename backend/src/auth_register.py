@@ -24,14 +24,14 @@ def api_register():
         conn = pool.get_connection()
         cur = conn.cursor(buffered=True)
         cur.execute(
-            f"""SELECT `email`, `username` FROM `accounts` WHERE `email` LIKE '{email}' OR `username` LIKE '{username}';""")
+            f"""SELECT `email`, `username` FROM `accounts` WHERE `email` LIKE %s OR `username` LIKE %s;""", (email, username))
 
         if cur.rowcount > 0:
             return {"error": "Email or username are already taken"}, 400
 
         # Store user in database
         cur.execute(
-            f"""INSERT INTO `accounts` (`email`, `username`, `password`) VALUES ('{email}', '{username}', '{password}');""")
+            f"""INSERT INTO `accounts` (`email`, `username`, `password`) VALUES (%s, %s, %s);""", (email, username, password))
 
         # Create session for user
         session["id"] = cur.lastrowid

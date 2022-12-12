@@ -17,10 +17,10 @@ def api_create_post():
         conn = pool.get_connection()
         cur = conn.cursor(dictionary=True, buffered=True)
         cur.execute(
-            f"""INSERT INTO `posts` (`content`, `author_id`) VALUES ('{content}', '{author_id}');""")
+            f"""INSERT INTO `posts` (`content`, `author_id`) VALUES (%s, %s);""", (content, author_id))
         conn.commit()
         cur.execute(
-            f"""SELECT `posts`.`id`, `posts`.`content`, `accounts`.`username`, `posts`.`created_at` FROM `posts` INNER JOIN `accounts` ON `accounts`.`id` = `posts`.`author_id` WHERE `posts`.`id` = {cur.lastrowid}""")
+            f"""SELECT `posts`.`id`, `posts`.`content`, `accounts`.`username`, `posts`.`created_at` FROM `posts` INNER JOIN `accounts` ON `accounts`.`id` = `posts`.`author_id` WHERE `posts`.`id` = %s""", (cur.lastrowid,))
         data = cur.fetchone()
 
         return data, 201

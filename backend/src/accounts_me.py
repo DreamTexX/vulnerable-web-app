@@ -13,7 +13,7 @@ def get_account_own():
         conn = pool.get_connection()
         cur = conn.cursor(dictionary=True, buffered=True)
         cur.execute(
-            f"""SELECT `id`, `email`, `username` FROM `accounts` WHERE `id` = {session["id"]}""")
+            f"""SELECT `id`, `email`, `username` FROM `accounts` WHERE `id` = %s""", (session["id"],))
 
         if cur.rowcount == 0:
             session.clear()
