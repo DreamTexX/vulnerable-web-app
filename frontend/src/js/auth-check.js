@@ -21,7 +21,7 @@ window.addEventListener('load', function(event) {
                 for (const element of visibleWhenAuthenticated) {
                     element.classList.remove('hidden');
                 }
-                document.querySelector('.email').innerHTML = data.username;
+                document.querySelector('.email').innerText = data.username;
             }
         )
         .catch(
