@@ -9,23 +9,32 @@ git checkout fix-sql-injections
 ```
 
 ### 1. Use XSS to change the behavior of the site.
-- Login as user1 with email "use1@email.com" and password "user1"
+- Login as user1 with email "user1@email.com" and password "user1"
 - Write a comment
-- Try to insert html code like `<p></p>`
+- Try to insert html code like `<p></p>` or `<h1></h1>`
 - See how the comment looks like
-- Html tags are not shown which means that they are interpreted
-- Try to execute javascript with `<script></script>`
-- Write the following comment:
-```html
-Hover over these two sweet huskies, and something good will happen:
-<img 
-    src="https://images.wallpaperscraft.com/image/single/husky_puppies_couple_leisure_52671_1920x1200.jpg" 
-    onmouseover="document.body.style.backgroundImage = \'url(https://media.tenor.com/IvyuPtEfzhoAAAAC/matrix.gif)\'">
-```
-> Be aware that you need to escape some special characters inside the python string <br/>
+> If you can´t see the Html tags it means that it is interpreted
+- Try to execute Javascript with `<script></script>`
+- Write a comment with an image which changes the background of the app to a matrix if you hover over it
+> You can use the image element `<img>`
+<br/>
+
+> This is an example image: `https://images.wallpaperscraft.com/image/single/husky_puppies_couple_leisure_52671_1920x1200.jpg`
+<br/>
+
+> You can use `onmouseover=""` inside `<img>` which is triggered by hovering over the image
+<br/>
+
+> You can change the background to a matrix with `document.body.style.backgroundImage = 'url(https://media.tenor.com/IvyuPtEfzhoAAAAC/matrix.gif)'`
+
+> Be aware that you need to escape some special characters <br/>
 > `'` needs to be `\'`
 - (optional) Write more comments that use XSS and permanently change something.
-> ideas: change background; register a user with a name that is an image; show a video; remove the content after the user logs in
+    - change background
+    - register a user with a name that is an image
+    - play a video
+    - remove the content after the user logs in
+    - ...
 
 <br/>
 
@@ -48,10 +57,10 @@ Hover over these two sweet huskies, and something good will happen:
 > Don't forget to create the outer list and to add the svg to it
 - For all extracted parts create new elements
 > You can create a Html element with `document.createElement("name_of_element")` <br/>
-> You can add classes to an element with `element.classList.add("flex", "flex-col", "gap-1", "content")` <br/>
+> You can add classes to an element with `element.classList.add("class1", "class2")` <br/>
 
 > Add elements at the end of a list with `element.append(otherElement1, otherElement2);` <br/>
 > Add elements at the beginning of a list with `element.prepend(otherEelemnt1, otherElement2);` <br/>
-- Insert the input into these elements with `innerText` instead of `innerHtml` so it is escaped
+- Insert the input into these elements with `innerText` instead of `innerHtml` so it is escaped properly
 - Now try again to create an XSS comment
 

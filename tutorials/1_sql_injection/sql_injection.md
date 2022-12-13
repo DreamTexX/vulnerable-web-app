@@ -9,21 +9,23 @@
 - See how the application behaves
 - The application returns an error with useful information
 - Use these information to do an SQL injection attack
-> A default query usually looks like the following:
+> A simple SQL query could look like the following:
 ```sql
 SELECT * FROM accounts WHERE email = '[email]' AND password = '[password]';
 ```
-> Words in brackets [word] are replaced by input parameters
-> Putting `'` into the email field and nothing into the password field would lead to the following query :
+> Words in brackets `[word]` are replaced by input parameters 
+<br/>
+
+> Putting `'` into the email field and nothing into the password field would lead to the following query:
 ```sql
- SELECT * FROM accounts WHERE email = ''' AND password = '[password]';
+ SELECT * FROM accounts WHERE email = ''' AND password = '';
 ```
 > `'''` is an incorrect SQL syntax and the application returns an error
 - Find a way to manipulate the query, so that the statement is always true despite the given password
 > You can use `#` to comment a line of an SQL statement <br/>
-> Putting `' #` into the email field and nothing into the password field would lead to the following query :
+> Putting `' #` into the email field and nothing into the password field would lead to the following query:
 ```sql
- SELECT * FROM accounts WHERE email = '' #' AND password = '[password]';
+ SELECT * FROM accounts WHERE email = '' #' AND password = '';
 ```
 > Everything after `#` is now a comment and the executed query would look like this:
 ```sql

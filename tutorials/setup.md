@@ -1,7 +1,7 @@
 # Setup
 
 1. Open Powershell
-2. Choose a directory for example `Downloads`
+2. Choose a directory (for example `Downloads`)
 
     `cd Downloads`
 
@@ -17,7 +17,7 @@
 
 6. Open the application in a browser: http://localhost:8080
 
-7. Restart (if needed) the application by running these commands in the root folder of the project
+7. Restart/Reset (if needed) the application by running these commands in the root folder of the project
 
     `docker compose down`    
     `docker compose up`

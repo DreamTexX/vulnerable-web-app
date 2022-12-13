@@ -1,13 +1,13 @@
-# XSS Tutorial
+# XSS Solution
 
 ### 1. Use XSS to change the behaviour of the site.
-- Write the following comment:
+- To change the background to a matrix write the following comment:
 ```html
 <img 
     src="https://images.wallpaperscraft.com/image/single/husky_puppies_couple_leisure_52671_1920x1200.jpg" 
     onmouseover="document.body.style.backgroundImage = \'url(https://media.tenor.com/IvyuPtEfzhoAAAAC/matrix.gif)\'">
 ```
-
+- 
 ----
 
 - Change the background
@@ -42,8 +42,8 @@ username<img src="https://images.wallpaperscraft.com/image/single/husky_puppies_
 <br/>
 
 ### 2. Repair the application, so that it is not possible to use XSS.
-- file: [frontend/src/js/auth-check.js](../frontend/src/js/auth-check.js)
-- change the code at line 24
+File: [frontend/src/js/auth-check.js](../frontend/src/js/auth-check.js)
+- Change the code at line 24
 > `innerText` escapes the given input
 
 current code:
@@ -58,7 +58,7 @@ replace with the following code:
 
 -----
 
-- file: [frontend/src/js/chirp.js](../frontend/src/js/chirp.js)
+File: [frontend/src/js/chirp.js](../frontend/src/js/chirp.js)
 - the method beginning at line 63 needs to be changed
 > Instead of creating a string the html elemnts are created separately and `innerText` is used to escape the input
 
