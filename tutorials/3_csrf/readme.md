@@ -11,7 +11,7 @@ git checkout fix-sql-injections
 ### 1. Use CSRF to create a link pointing to another site
 > In this example the approach is very similar to an XSS attack and you use the same weak point of the application
 
-- Login as user1 with email "use1@email.com" and password "user1"
+- Login as user1 with email "user1@email.com" and password "user1"
 - Instead of an image insert a link `<a href="link-to-website.com">link</a>` into the comment
 - Look at the link preview at the bottom of the browser
 - Try to change the previewed link without changing the actual destination
