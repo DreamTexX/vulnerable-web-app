@@ -15,7 +15,7 @@ git checkout fix-sql-injections
 - See how the comment looks like
 > If you can´t see the Html tags it means that it is interpreted
 - Try to execute Javascript with `<script></script>`
-- Write a comment with an image which changes the background of the app to a matrix if you hover over it
+- Write a comment that shows an image and by hovering over it the background changes to a matrix
 > You can use the image element `<img>`
 <br/>
 
